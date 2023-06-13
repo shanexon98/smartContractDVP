@@ -1,0 +1,67 @@
+Preguntas teóricas:
+● Explica brevemente qué es blockchain y cómo funciona.
+Blockchain en una idea muy resumida es libro de contabilidad digital, decentralizado que funciona mediante la creacion de bloques que se enlazan entre si mediante criptografia, asi formando una cadena de bloques llena de información casi imposible de alterar dependiendo
+la blockchain. 
+● ¿Cuál es la diferencia entre una blockchain pública y una blockchain privada?
+La principal diferencia entre blockchain pública y una blockchain privada es su accesibilidad y la libertad de su uso es decir sus permisos, siendo asi que la publica cualquier persona puede unirse, acceder o partiocipar en la informacion ded la cadena de bloques, esto hace que 
+la privada limite el acceso y a la participacion solo a un grupo de personas selecto o alguna entidad con los permisos de usarla.
+● ¿Qué es un algoritmo de consenso en blockchain y por qué es importante?
+Un algortimo de consenso es basicamente un conjunto de reglas y protocolos usandos para garantizar que todos los nodos de una blockchain o de la red en general lleguen a un acuerdo sobre el orden de las transacciones.
+● Explica los diferentes métodos de consenso que conoces.
+Existen principalmente el Proof of work, el proof of stake y el proof of authority, todos son protocolos de consenso para determinados usos en determinadas blockchain. 
+● ¿Qué es una wallet? (Explica)
+Una wallet hace referencia a una billetera que es basicamente un software o dispositivo que se usa para almacenar, gestionar y realizar transacciones principalmente en cryptoactivos.
+● ¿Cuáles son los tipos de Wallets? (Explica)
+En el mundo de las wallets existes difetentes tipos los walles son wallets de sotfware que son aplicaciones que se ejecutan en pc o moviles, tambien wallets de hardware que son dispositivos fisicos pero con la diferencia que almacenan las llaves privadas fuera de linea, lo que las hace 
+más seguras ya que no estan expuestas todo el tiempo por ultimo existen wallets de papel que me permiten imprimir o escribir mis claves privadas y mantenerlas en frio.
+● Explique y con un ejemplo en código describa los principales elementos de
+una wallet. 
+Los elementos de una wallet son basicamente la Clave privada, la calve publica y la direccion de la wallet. 
+En este caso se escribio un pequeño fragmento de codigo en Solidity para explicar los elementos de una wallet: 
+pragma solidity ^0.8.0;
+
+contract WalletExample {
+    address public owner;
+    
+    constructor() {
+        owner = msg.sender;
+    }
+    
+    
+    function generatePrivateKey() public view returns (bytes32) {
+        bytes32 privateKey = bytes32(uint256(keccak256(abi.encodePacked(block.timestamp, msg.sender))));
+        return privateKey;
+    }
+    
+    function generateAddress(bytes32 privateKey) public pure returns (address) {
+        return address(uint256(privateKey));
+    }
+}
+
+SEGURIDAD EN SMART CONTRACTS
+● Menciona algunas vulnerabilidades comunes en los contratos inteligentes y
+cómo se pueden evitar.
+Algunas de las vulnerabilidades a las que estan expuestos los contratos inteligentes son desbordamiento aritmetico que quiere decir cuando los calculos dentro del contrato
+exceden limites permitidos, lo que puede causar datos erroneos o perdida de fondos al ejecutar el contrato. otro problema o vulnerabilidad seria algun problema de acceso si 
+no se establecen correctamente los permisos y restricciones de acceso. De igual manera el usar librerias o dependencias externas no reconocidas, se podria exponer al contrato 
+a vulnerabilidades de seguridad.
+● Explica el concepto de reentrancy en los contratos inteligentes y cómo se
+puede proteger contra él.
+Reentancy hace referencia a la capacidad de un contrato de llamarse a si mismo o a otro contrato durante alguna ejecucion del mismo, esto puede llevas a alguna situacion donde 
+el contrato en esta caso malicioso pueda abusar de este recurso para manipular el flujo de ejecucion y robar datos y dinero. En este caso para proteger el contrato 
+se pueden usar practicas como el patron de seguridad como Checks-Effects-Interactions que lo que hace es validar y actualizar el estados antes de realizar intercambio de datos 
+con otro contrato. Tambien se puede usar el modificador propio de solidity noReentrancy que hace que quiza funciones suceptiables a este ataque queden bloqueadas las llamadas
+recursivas y garantiza que no sea pueda hacer acciones adicionales.
+
+HERRAMIENTAS Y SOFTWARE 
+● Menciona algunas herramientas y frameworks populares utilizados para el
+desarrollo de blockchain y sus características principales.
+Ethereum principalmente como blockchain que me permite crear DApps y contratos en solidity. 
+Truffle es un framework que me permite compilar, migrar y probar contratos para agilizar el proceso del desarrollo.
+Ganache es una herramienta de blockchain pero en desarrollo local me deja crear una red en eth en un entorno local para probar los contratos sin generar costo alguno.
+Remix IDe, me permite escribir, compilar y probar codigo en diferentes blockchains basadas en etehreum.
+Y por ultimo Web3js que es una libreria de js que me deja construir aplicaciones web y DApps que se conecten con blockchain directamente. 
+● ¿Qué es Metamask y cómo se utiliza en el desarrollo de aplicaciones
+descentralizadas?
+Metamask es una extension para navegador que actua como una wallet y me mermite conectarme con mis aplicaciones basadas en blockchain para pagar costos de gas o realizar 
+diferentes tareas. 
