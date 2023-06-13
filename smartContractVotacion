@@ -1,0 +1,49 @@
+// SPDX-License-Identifier: GPL-3.0
+
+
+pragma solidity ^0.8.0;
+
+contract SystemVoting  {
+    // Estructura para representar un voto
+    struct Vote {
+        address voter; // Dirección del votante
+        uint256 option; // Opción seleccionada por el votante
+    }
+
+    // Variables de estado
+    mapping(address => bool) public voters; 
+    mapping(uint256 => uint256) public voteCounter; 
+    Vote[] public votes; 
+
+    // Evento para notificar cuando se emite un voto
+    event VoteEmit(address indexed _vote, uint256 indexed _option);
+
+    // Función para emitir un voto
+    function emitirVoto(uint256 _option) public {
+        require(!voters[msg.sender], "Ya has emitido tu voto."); 
+        require(_option > 0, "La opcion debe ser mayor a cero."); 
+
+        voters[msg.sender] = true; 
+        voteCounter[_option]++; 
+
+        Vote memory newVoto = Vote({
+            voter: msg.sender,
+            option: _option
+        });
+        votes.push(newVoto); 
+
+        emit VoteEmit(msg.sender, _option); // Emitir el evento de voto emitido
+    }
+
+    // Función para obtener el número total de votos emitidos
+    function obtenerTotalVotos() public view returns (uint256) {
+        return votes.length;
+    }
+
+    // Función para obtener el número de votos para una opción específica
+    function obtenerVotosPorOpcion(uint256 _option) public view returns (uint256) {
+        require(_option > 0, "La opcion debe ser mayor a cero."); 
+        return voteCounter[_option];
+    }
+}
+
